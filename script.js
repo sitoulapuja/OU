@@ -70,17 +70,3 @@ showPhoneBtn?.addEventListener("click", () => {
     showPhoneBtn.textContent = "Show Phone";
   }
 });
-
-// ===== Copy Email =====
-const copyEmailBtn = document.getElementById("copyEmailBtn");
-const copyMsg = document.getElementById("copyMsg");
-
-copyEmailBtn?.addEventListener("click", async () => {
-  const email = "sitoulapuja@gmail.com";
-  await navigator.clipboard.writeText(email);
-  copyMsg.textContent = "Email copied!";
-  
-  setTimeout(() => {
-    copyMsg.textContent = "";
-  }, 2000);
-});
