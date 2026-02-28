@@ -118,6 +118,7 @@ h1{
 }
 .btn{
   display:inline-flex; align-items:center; justify-content:center;
+  font-size: 14px;
   padding: 11px 14px;
   border-radius: 14px;
   border:1px solid var(--line);
@@ -331,6 +332,7 @@ h1{
   border:1px solid rgba(48,213,200,.25);
   background: rgba(48,213,200,.07);
   color: var(--muted);
+  font-size: 14 px;
 }
 .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace}
 .form label{display:block; margin: 10px 0; color: var(--muted)}
@@ -396,4 +398,41 @@ input:focus, textarea:focus{
     width: min(260px, calc(100vw - 36px));
   }
   .nav.show{display:flex}
+}
+.ou-logo{
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.03);
+  padding: 4px;
+}
+.edu-header{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:10px;
+}
+
+.edu-logo{
+  width:54px;
+  height:54px;
+  object-fit:contain;
+  border-radius:50%;
+  background:white;
+  padding:8px;
+  border:2px solid rgba(255,255,255,.1);
+}
+
+.hidden-info{
+  margin-left:10px;
+  font-weight:600;
+  color: var(--text);
+}
+
+.copy-msg{
+  margin-left:10px;
+  font-size:13px;
+  color: var(--muted);
 }

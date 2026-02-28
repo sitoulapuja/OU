@@ -6,6 +6,7 @@
   <title>Puja Sitoula | HR & Psychology Research</title>
   <meta name="description" content="Puja Sitoula — Aspiring HR professional and PhD student at OU. Recruitment, onboarding, HRIS, compliance, employee engagement." />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="assets/OU_logo.png">
 </head>
 
 <body>
@@ -15,9 +16,9 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="logo" href="#top" aria-label="Go to top">
-        <span class="logo-dot" aria-hidden="true"></span>
-        <span>Puja Sitoula</span>
-      </a>
+  <img src="assets/OU_logo.png" alt="OU logo" class="ou-logo" />
+  <span>Puja Sitoula</span>
+</a>
 
       <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav">
         <span class="sr-only">Toggle navigation</span>
@@ -274,24 +275,38 @@
         </div>
 
         <div class="edu-grid">
-          <div class="edu-card">
-            <h3>Ph.D. (In Progress)</h3>
-            <p class="muted">Science of Psychology, Data Science, and Research in Education</p>
-            <p>Oklahoma University • Oklahoma</p>
-          </div>
 
-          <div class="edu-card">
-            <h3>B.S. — Psychology</h3>
-            <p class="muted">East Central University</p>
-            <p>Oklahoma, USA</p>
-          </div>
+  <!-- PhD -->
+  <div class="edu-card">
+    <div class="edu-header">
+      <img src="assets/OU_logo.png" alt="OU logo" class="edu-logo">
+      <h3>Ph.D. (In Progress)</h3>
+    </div>
+    <p class="muted">Science of Psychology, Data Science, and Research in Education</p>
+    <p>University of Oklahoma • Oklahoma</p>
+  </div>
 
-          <div class="edu-card">
-            <h3>Bachelor — Psychology</h3>
-            <p class="muted">Tribhuvan University</p>
-            <p>Nepal</p>
-          </div>
-        </div>
+  <!-- BS ECU -->
+  <div class="edu-card">
+    <div class="edu-header">
+      <img src="assets/ECU_logo.png" alt="ECU logo" class="edu-logo">
+      <h3>B.S. — Psychology</h3>
+    </div>
+    <p class="muted">East Central University</p>
+    <p>Oklahoma, USA</p>
+  </div>
+
+  <!-- TU Nepal -->
+  <div class="edu-card">
+    <div class="edu-header">
+      <img src="assets/TU_logo.png" alt="TU logo" class="edu-logo">
+      <h3>Bachelor — Psychology</h3>
+    </div>
+    <p class="muted">Tribhuvan University</p>
+    <p>Nepal</p>
+  </div>
+
+</div>
       </div>
     </section>
 

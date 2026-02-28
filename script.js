@@ -57,3 +57,30 @@ form?.addEventListener("submit", (e) => {
   formMsg.textContent = "Opening your email app…";
   form.reset();
 });
+// ===== Phone Show / Hide =====
+const showPhoneBtn = document.getElementById("showPhoneBtn");
+const phoneNumber = document.getElementById("phoneNumber");
+
+showPhoneBtn?.addEventListener("click", () => {
+  if (phoneNumber.textContent === "") {
+    phoneNumber.textContent = "(405) 318-2987";
+    showPhoneBtn.textContent = "Hide Phone";
+  } else {
+    phoneNumber.textContent = "";
+    showPhoneBtn.textContent = "Show Phone";
+  }
+});
+
+// ===== Copy Email =====
+const copyEmailBtn = document.getElementById("copyEmailBtn");
+const copyMsg = document.getElementById("copyMsg");
+
+copyEmailBtn?.addEventListener("click", async () => {
+  const email = "sitoulapuja@gmail.com";
+  await navigator.clipboard.writeText(email);
+  copyMsg.textContent = "Email copied!";
+  
+  setTimeout(() => {
+    copyMsg.textContent = "";
+  }, 2000);
+});
