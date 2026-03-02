@@ -7,9 +7,14 @@
   <meta name="description" content="Puja Sitoula — Aspiring HR professional and PhD student at OU. Recruitment, onboarding, HRIS, compliance, employee engagement." />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" type="image/png" href="assets/OU_logo.png">
+  <!-- Google reCAPTCHA v2 -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
+  <!-- Animated background canvas -->
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
+
   <!-- Top progress bar (JS) -->
   <div class="progress" id="progress" aria-hidden="true"></div>
 
@@ -41,7 +46,7 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-text">
-          <p class="kicker">Oklahoma City, OK • HR Intern / Entry-Level HR</p>
+          <p class="kicker">Oklahoma City, OK • HR / Data Analyst Roles</p>
           <h1>
             Aspiring <span class="accent">Human Resources</span> professional <br/>
             &amp; PhD student at <span class="accent">OU</span>
@@ -79,7 +84,7 @@
 
             <div class="status">
               <span class="status-dot" aria-hidden="true"></span>
-              Open to HR Intern / Data Analyst roles
+              Open to HR / Data Analyst roles
             </div>
           </div>
         </div>
@@ -112,7 +117,7 @@
           <div class="panel">
             <h3>What I’m looking for</h3>
             <p>
-              HR Intern or entry-level Data Analyst roles where I can deepen my hands-on HR operations skills, data analysis
+              HR or entry-level Data Analyst roles where I can deepen my hands-on HR operations skills, data analysis
               contribute to employee experience, and support effective HR systems and documentation.
             </p>
             <div class="mini-cards">
@@ -210,10 +215,19 @@
         </div>
 
         <div class="timeline">
+
           <article class="job">
             <div class="job-top">
-              <h3>Student HR Coordinator</h3>
-              <div class="job-meta">Oklahoma University • Norman, OK • Feb 2026 – Present</div>
+              <div class="job-header">
+                <div class="job-logo-wrap">
+                  <img src="assets/OU_logo.png" alt="University of Oklahoma logo" class="job-logo" />
+                </div>
+                <div class="job-title-block">
+                  <h3>Student HR Coordinator</h3>
+                  <div class="job-company">University of Oklahoma</div>
+                  <div class="job-meta">Norman, OK &nbsp;·&nbsp; Feb 2026 – Present &nbsp;·&nbsp; <span class="job-badge current">Current</span></div>
+                </div>
+              </div>
             </div>
             <ul>
               <li>Supported full-cycle student recruitment by screening applications, scheduling interviews, and coordinating onboarding documentation.</li>
@@ -225,8 +239,16 @@
 
           <article class="job">
             <div class="job-top">
-              <h3>HR Operations & Administrative Support</h3>
-              <div class="job-meta">Easterseals Inc. • Manchester, NH • May 2025 – Dec 2025</div>
+              <div class="job-header">
+                <div class="job-logo-wrap">
+                  <img src="assets/easter.png" alt="Easterseals logo" class="job-logo" />
+                </div>
+                <div class="job-title-block">
+                  <h3>HR Operations & Administrative Support</h3>
+                  <div class="job-company">Easterseals Inc.</div>
+                  <div class="job-meta">Manchester, NH &nbsp;·&nbsp; May 2025 – Dec 2025</div>
+                </div>
+              </div>
             </div>
             <ul>
               <li>Maintained accurate, confidential documentation aligned with organizational and regulatory standards.</li>
@@ -238,8 +260,16 @@
 
           <article class="job">
             <div class="job-top">
-              <h3>Human Resources Support / Intern</h3>
-              <div class="job-meta">Heifer International (NGO) • Little Rock, AR • Feb 2024 – Sept 2024</div>
+              <div class="job-header">
+                <div class="job-logo-wrap">
+                  <img src="assets/heifer.jpg" alt="Heifer International logo" class="job-logo" />
+                </div>
+                <div class="job-title-block">
+                  <h3>Human Resources Support / Intern</h3>
+                  <div class="job-company">Heifer International (NGO)</div>
+                  <div class="job-meta">Little Rock, AR &nbsp;·&nbsp; Feb 2024 – Sept 2024</div>
+                </div>
+              </div>
             </div>
             <ul>
               <li>Supported HR operations: job postings, resume screening, interview scheduling.</li>
@@ -251,8 +281,16 @@
 
           <article class="job">
             <div class="job-top">
-              <h3>Administrative / HR Assistant</h3>
-              <div class="job-meta">Oklahoma City University • Oklahoma City, OK • Feb 2023 – July 2023</div>
+              <div class="job-header">
+                <div class="job-logo-wrap">
+                  <img src="assets/ocu" alt="Oklahoma City University logo" class="job-logo" />
+                </div>
+                <div class="job-title-block">
+                  <h3>Administrative / HR Assistant</h3>
+                  <div class="job-company">Oklahoma City University</div>
+                  <div class="job-meta">Oklahoma City, OK &nbsp;·&nbsp; Feb 2023 – July 2023</div>
+                </div>
+              </div>
             </div>
             <ul>
               <li>Provided HR/admin support: records management, scheduling, documentation.</li>
@@ -261,6 +299,7 @@
               <li>Supported event planning, meetings, and training logistics.</li>
             </ul>
           </article>
+
         </div>
       </div>
     </section>
@@ -339,15 +378,38 @@
         <div class="contact-grid">
           <div class="panel">
             <h3>Direct</h3>
-            <p class="contact-line">📞 <a href="tel:+14053182987">(405) 318-2987</a></p>
-            <p class="contact-line">📧 <a href="mailto:sitoulapuja@gmail.com">sitoulapuja@gmail.com</a></p>
+
+            <!-- LinkedIn always visible -->
             <p class="contact-line">🔗 <a href="https://www.linkedin.com/in/puja-sitoula-513949233/" target="_blank" rel="noreferrer">LinkedIn</a></p>
 
-            <div class="note">
+            <!-- Hidden contact info — revealed after reCAPTCHA -->
+            <div class="contact-protected" id="contactProtected">
+              <div class="contact-locked" id="contactLocked">
+                <div class="lock-icon">🔒</div>
+                <p class="lock-msg">Verify you're human to reveal contact info</p>
+                <button class="btn ghost reveal-btn" id="revealBtn">Reveal Phone &amp; Email</button>
+              </div>
+
+              <!-- reCAPTCHA box — hidden until button clicked -->
+              <div class="recaptcha-box" id="recaptchaBox" style="display:none;">
+                <!-- ⚠️ REPLACE YOUR_SITE_KEY with your real key from https://www.google.com/recaptcha/admin -->
+                <div class="g-recaptcha"
+                     data-sitekey="6Leu2XwsAAAAAMLx_P3X4K_giOLpNByCFOC9_Bdm"
+                     data-callback="onCaptchaSuccess"
+                     data-theme="white">
+                </div>
+              </div>
+
+              <!-- Revealed info — hidden until captcha passed -->
+              <div class="contact-revealed" id="contactRevealed" style="display:none;">
+                <p class="contact-line reveal-item">📞 <a href="tel:+14053182987">(405) 318-2987</a></p>
+                <p class="contact-line reveal-item">📧 <a href="mailto:sitoulapuja@gmail.com">sitoulapuja@gmail.com</a></p>
+                <p class="reveal-note">✅ Verified — info visible for this session</p>
+              </div>
             </div>
           </div>
 
-          <form class="panel form" id="contactForm">
+          <form class="panel form" id="contactForm" action="https://formspree.io/f/xqedovoo" method="POST">
             <h3>Message</h3>
 
             <label>
@@ -379,11 +441,28 @@
     <footer class="footer">
       <div class="container footer-inner">
         <p>© <span id="year"></span> Puja Sitoula • Built with HTML/CSS/JS</p>
-        <a href="#top" class="back-to-top">Back to top ↑</a>
+        <a href="#top" class="back-to-top">↑ Back to top</a>
       </div>
     </footer>
+
   </main>
 
-  <script src="script.js"></script>
+  <!-- ===== AI Agent Floating Orb ===== -->
+  <div class="ai-orb-wrap" id="aiOrb" title="AI Assistant — Coming Soon">
+    <div class="ai-orb">
+      <div class="orb-ring ring1"></div>
+      <div class="orb-ring ring2"></div>
+      <div class="orb-ring ring3"></div>
+      <div class="orb-core">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2z"/>
+          <path d="M8 12h8M12 8v8"/>
+        </svg>
+      </div>
+    </div>
+    <div class="orb-tooltip">🤖 AI Assistant<br/><span>Coming Soon</span></div>
+  </div>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
