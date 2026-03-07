@@ -264,7 +264,7 @@ window.onCaptchaSuccess = function () {
 // ===== AI Chat Widget =====
 // ⚠️ After deploying to Vercel, replace this URL with your real Vercel deployment URL:
 // e.g. "https://puja-portfolio.vercel.app/api/chat"
-const CHAT_API_URL = "https://ou-one.vercel.app/";
+const CHAT_API_URL = "https://ou-one.vercel.app/api/chat";
 
 const aiOrb      = document.getElementById("aiOrb");
 const chatWindow = document.getElementById("chatWindow");
