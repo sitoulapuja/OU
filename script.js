@@ -10,7 +10,6 @@
     soft:    "180,194,230",
   };
 
-  // Labels that float around — HR + psychology + data themed
   const LABELS = [
     "Recruitment", "Onboarding", "HRIS", "Compliance",
     "Psychology", "Data", "Research", "UKG", "Paycom",
@@ -52,10 +51,8 @@
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
-
     const LINK_DIST = 160;
 
-    // Draw connections
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const a = nodes[i], b = nodes[j];
@@ -73,12 +70,10 @@
       }
     }
 
-    // Draw nodes + labels
     for (const n of nodes) {
       n.pulse += 0.018;
-      const glow = Math.sin(n.pulse) * 0.5 + 0.5; // 0–1
+      const glow = Math.sin(n.pulse) * 0.5 + 0.5;
 
-      // Outer glow ring
       const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 5);
       grad.addColorStop(0, `rgba(${n.color},${0.18 * glow})`);
       grad.addColorStop(1, `rgba(${n.color},0)`);
@@ -87,22 +82,17 @@
       ctx.fillStyle = grad;
       ctx.fill();
 
-      // Core dot
       ctx.beginPath();
       ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(${n.color},${0.55 + 0.45 * glow})`;
       ctx.fill();
 
-      // Floating label
       ctx.font = "11px ui-sans-serif, system-ui, sans-serif";
       ctx.fillStyle = `rgba(${n.color},${0.28 + 0.18 * glow})`;
       ctx.fillText(n.label, n.x + n.r + 4, n.y + 4);
 
-      // Move
       n.x += n.vx;
       n.y += n.vy;
-
-      // Bounce off edges
       if (n.x < 0 || n.x > W) n.vx *= -1;
       if (n.y < 0 || n.y > H) n.vy *= -1;
     }
@@ -112,7 +102,6 @@
 
   window.addEventListener("resize", () => {
     resize();
-    // Keep existing nodes roughly in bounds
     for (const n of nodes) {
       n.x = Math.min(n.x, W);
       n.y = Math.min(n.y, H);
@@ -123,15 +112,15 @@
   draw();
 })();
 
+// ===== Nav Toggle =====
 const navToggle = document.getElementById("navToggle");
-const siteNav = document.getElementById("siteNav");
+const siteNav   = document.getElementById("siteNav");
 
 navToggle?.addEventListener("click", () => {
   const isOpen = siteNav.classList.toggle("show");
   navToggle.setAttribute("aria-expanded", String(isOpen));
 });
 
-// Close nav after clicking a link (mobile)
 siteNav?.querySelectorAll("a").forEach(a => {
   a.addEventListener("click", () => {
     siteNav.classList.remove("show");
@@ -139,10 +128,10 @@ siteNav?.querySelectorAll("a").forEach(a => {
   });
 });
 
-// Footer year
+// ===== Footer year =====
 document.getElementById("year").textContent = new Date().getFullYear();
 
-// Scroll progress bar
+// ===== Scroll progress bar =====
 const progress = document.getElementById("progress");
 window.addEventListener("scroll", () => {
   const doc = document.documentElement;
@@ -152,17 +141,17 @@ window.addEventListener("scroll", () => {
   progress.style.width = `${pct}%`;
 });
 
-// Contact form: submits to Formspree
-const form = document.getElementById("contactForm");
-const formMsg = document.getElementById("formMsg");
+// ===== Contact Form (Formspree) =====
+const form      = document.getElementById("contactForm");
+const formMsg   = document.getElementById("formMsg");
 const submitBtn = form?.querySelector("button[type='submit']");
 
 form?.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const data = new FormData(form);
-  const name = String(data.get("name") || "").trim();
-  const email = String(data.get("email") || "").trim();
+  const data    = new FormData(form);
+  const name    = String(data.get("name")    || "").trim();
+  const email   = String(data.get("email")   || "").trim();
   const message = String(data.get("message") || "").trim();
 
   if (!name || !email || !message) {
@@ -171,11 +160,7 @@ form?.addEventListener("submit", async (e) => {
     return;
   }
 
-  // Disable button while sending
-  if (submitBtn) {
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending…";
-  }
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Sending…"; }
 
   try {
     const response = await fetch("https://formspree.io/f/xqedovoo", {
@@ -189,38 +174,22 @@ form?.addEventListener("submit", async (e) => {
       formMsg.textContent = "✅ Message sent! I'll get back to you soon.";
       form.reset();
     } else {
-      const json = await response.json();
+      const json  = await response.json();
       const errMsg = json?.errors?.map(e => e.message).join(", ") || "Something went wrong.";
       formMsg.style.color = "#f87171";
       formMsg.textContent = `❌ Error: ${errMsg}`;
     }
-  } catch (err) {
+  } catch {
     formMsg.style.color = "#f87171";
     formMsg.textContent = "❌ Network error. Please try again.";
   } finally {
-    if (submitBtn) {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Send";
-    }
-  }
-});
-// ===== Phone Show / Hide =====
-const showPhoneBtn = document.getElementById("showPhoneBtn");
-const phoneNumber = document.getElementById("phoneNumber");
-
-showPhoneBtn?.addEventListener("click", () => {
-  if (phoneNumber.textContent === "") {
-    phoneNumber.textContent = "(405) 318-2987";
-    showPhoneBtn.textContent = "Hide Phone";
-  } else {
-    phoneNumber.textContent = "";
-    showPhoneBtn.textContent = "Show Phone";
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Send"; }
   }
 });
 
 // ===== reCAPTCHA Contact Reveal =====
-const revealBtn    = document.getElementById("revealBtn");
-const recaptchaBox = document.getElementById("recaptchaBox");
+const revealBtn       = document.getElementById("revealBtn");
+const recaptchaBox    = document.getElementById("recaptchaBox");
 const contactLocked   = document.getElementById("contactLocked");
 const contactRevealed = document.getElementById("contactRevealed");
 
@@ -229,18 +198,125 @@ revealBtn?.addEventListener("click", () => {
   recaptchaBox.style.display  = "flex";
 });
 
-// Called by reCAPTCHA on success (data-callback="onCaptchaSuccess")
 window.onCaptchaSuccess = function () {
   recaptchaBox.style.display    = "none";
   contactRevealed.style.display = "flex";
 };
 
-// ===== AI Orb click (placeholder — wire up your agent here) =====
-document.getElementById("aiOrb")?.addEventListener("click", () => {
-  // TODO: replace this with your AI agent open/close logic
-  const tooltip = document.querySelector(".orb-tooltip");
-  tooltip.textContent = "🚀 !";
-  setTimeout(() => {
-    tooltip.innerHTML = "🤖 AI Assistant<br/><span>Coming Soon</span>";
-  }, 2000);
+// ===== AI Chat Orb =====
+// ⚠️  Set this to your deployed Vercel URL (no trailing slash)
+const CHAT_API_URL = "https://ou-one.vercel.app/api/chat";
+
+const aiOrb      = document.getElementById("aiOrb");
+const chatWindow = document.getElementById("chatWindow");
+const chatClose  = document.getElementById("chatClose");
+const chatInput  = document.getElementById("chatInput");
+const chatSend   = document.getElementById("chatSend");
+const chatMsgs   = document.getElementById("chatMessages");
+
+let chatOpen = false;
+
+// ── Open / Close ──────────────────────────────────────────────
+function openChat() {
+  chatOpen = true;
+  chatWindow.classList.add("chat-visible");
+  chatWindow.setAttribute("aria-hidden", "false");
+  chatInput.focus();
+}
+
+function closeChat() {
+  chatOpen = false;
+  chatWindow.classList.remove("chat-visible");
+  chatWindow.setAttribute("aria-hidden", "true");
+}
+
+aiOrb.addEventListener("click", () => {
+  chatOpen ? closeChat() : openChat();
+});
+
+chatClose.addEventListener("click", closeChat);
+
+// Close on Escape key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && chatOpen) closeChat();
+});
+
+// ── Render a message bubble ───────────────────────────────────
+function appendMessage(role, text) {
+  const wrap = document.createElement("div");
+  wrap.className = `chat-msg ${role}`;
+
+  const bubble = document.createElement("div");
+  bubble.className = "chat-bubble";
+  bubble.textContent = text;
+
+  wrap.appendChild(bubble);
+  chatMsgs.appendChild(wrap);
+  chatMsgs.scrollTop = chatMsgs.scrollHeight;
+  return bubble;
+}
+
+// ── Typing indicator ─────────────────────────────────────────
+function showTyping() {
+  const wrap = document.createElement("div");
+  wrap.className = "chat-msg bot";
+  wrap.id = "typingIndicator";
+
+  const bubble = document.createElement("div");
+  bubble.className = "chat-bubble chat-typing";
+  bubble.innerHTML = `<span></span><span></span><span></span>`;
+
+  wrap.appendChild(bubble);
+  chatMsgs.appendChild(wrap);
+  chatMsgs.scrollTop = chatMsgs.scrollHeight;
+}
+
+function hideTyping() {
+  document.getElementById("typingIndicator")?.remove();
+}
+
+// ── Send message ─────────────────────────────────────────────
+async function sendMessage() {
+  const text = chatInput.value.trim();
+  if (!text) return;
+
+  chatInput.value = "";
+  chatInput.disabled = true;
+  chatSend.disabled  = true;
+
+  appendMessage("user", text);
+  showTyping();
+
+  try {
+    const res = await fetch(CHAT_API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text }),
+    });
+
+    const data = await res.json();
+    hideTyping();
+
+    if (res.ok && data.reply) {
+      appendMessage("bot", data.reply);
+    } else {
+      appendMessage("bot", data.error || "Sorry, something went wrong. Please try again.");
+    }
+  } catch {
+    hideTyping();
+    appendMessage("bot", "❌ Network error — please check your connection and try again.");
+  } finally {
+    chatInput.disabled = false;
+    chatSend.disabled  = false;
+    chatInput.focus();
+  }
+}
+
+chatSend.addEventListener("click", sendMessage);
+
+chatInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
 });

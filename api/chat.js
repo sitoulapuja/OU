@@ -3,7 +3,8 @@ export default async function handler(req, res) {
   // ── CORS: only allow requests from your GitHub Pages site ──
   const ALLOWED_ORIGINS = new Set([
     "https://sitoulapuja.github.io",
-    "http://localhost",        // for local testing
+    "http://localhost",   
+    "https://ou-one.vercel.app",     // for local testing
     "http://127.0.0.1:5500",  // VS Code Live Server
   ]);
 
