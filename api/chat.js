@@ -83,7 +83,7 @@ Guidelines:
 - Never share the phone number. Direct contact to email or LinkedIn only.
     `.trim();
 
-    const groqResp = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    const groqResp = await fetch("https://ou-one.vercel.app/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
