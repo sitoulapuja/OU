@@ -842,3 +842,11 @@ input:focus, textarea:focus{
     bottom: 90px;
   }
 }
+
+/* Hide orb while chat is open */
+.ai-orb-wrap.orb-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.7);
+  transition: opacity .2s ease, transform .2s ease;
+}

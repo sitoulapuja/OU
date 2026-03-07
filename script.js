@@ -221,6 +221,7 @@ function openChat() {
   chatOpen = true;
   chatWindow.classList.add("chat-visible");
   chatWindow.setAttribute("aria-hidden", "false");
+  aiOrb.classList.add("orb-hidden");
   chatInput.focus();
 }
 
@@ -228,6 +229,7 @@ function closeChat() {
   chatOpen = false;
   chatWindow.classList.remove("chat-visible");
   chatWindow.setAttribute("aria-hidden", "true");
+  aiOrb.classList.remove("orb-hidden");
 }
 
 aiOrb.addEventListener("click", () => {
