@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Puja Sitoula | HR & Psychology Research</title>
-  <meta name="description" content="Puja Sitoula — Aspiring HR professional and PhD student at OU. Recruitment, onboarding, HRIS, compliance, employee engagement." />
+  <meta name="description" content="Puja Sitoula — Aspiring HR professional and PhD candidate at OU. Recruitment, onboarding, HRIS, compliance, employee engagement." />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" type="image/png" href="assets/OU_logo.png">
   <!-- Google reCAPTCHA v2 -->
@@ -51,7 +51,7 @@
           <p class="kicker">Oklahoma City, OK • HR / Data Analyst Roles</p>
           <h1>
             Aspiring <span class="accent">Human Resources</span> professional <br/>
-            &amp; PhD student at <span class="accent">OU</span>
+            &amp; PhD Candidate at <span class="accent">OU</span>
           </h1>
           <p class="subtitle">
             Hands-on experience in recruitment support, onboarding, HRIS administration,
@@ -61,17 +61,18 @@
           <div class="hero-actions">
             <a class="btn primary" href="#contact">Contact Me</a>
             <a class="btn ghost" href="assets/resume.pdf" download>Download Resume (PDF)</a>
+          <div class="pill">🔗 <a href="https://www.linkedin.com/in/puja-sitoula-513949233/" target="_blank" rel="noreferrer">LinkedIn</a></div>
+        
           </div>
 
           <div class="quick-info">
             
-            <div class="pill">🔗 <a href="https://www.linkedin.com/in/puja-sitoula-513949233/" target="_blank" rel="noreferrer">LinkedIn</a></div>
-          </div>
+              </div>
           
           <div class="panel">
           <h3>About</h3>
           <p>
-            I’m a PhD student (Science of Psychology, Data Science, and Research in Education) with practical HR experience
+            I’m a PhD candidate (Science of Psychology, Data Science, and Research in Education) with practical HR experience
             across academic, nonprofit, and corporate environments. I enjoy supporting people operations and improving HR processes
             through strong documentation, systems accuracy, and data-driven reporting.
           </p>
@@ -128,15 +129,15 @@
             <div class="mini-cards">
               <div class="mini">
                 <div class="mini-title">Focus</div>
-                <div class="mini-text">HR Operations • Talent Support</div>
+                <div class="mini-text">HR Operations • Talent Support • Data Analysis</div>
               </div>
               <div class="mini">
                 <div class="mini-title">Strength</div>
-                <div class="mini-text">Organization • Communication</div>
+                <div class="mini-text">Organization • Communication • Team Work</div>
               </div>
               <div class="mini">
                 <div class="mini-title">Style</div>
-                <div class="mini-text">Confidential • Detail-oriented</div>
+                <div class="mini-text">Confidential • Detail-oriented • Goal-oriented</div>
               </div>
             </div>
           </div>
@@ -155,16 +156,16 @@
         <div class="skills-grid">
           <div class="skill-card">
             <h3>Human Resources Functions</h3>
-            <ul>
-              <li>Recruitment Support</li>
-              <li>Resume Screening</li>
-              <li>Interview Scheduling</li>
-              <li>New Hire Onboarding</li>
-              <li>Employee Records Management</li>
-              <li>Benefits & Payroll Support</li>
-              <li>Compliance Assistance</li>
-              <li>Employee Engagement Support</li>
-            </ul>
+            <div class="chips">
+              <span class="chip">Recruitment Support</span>
+              <span class="chip">Resume Screening</span>
+              <span class="chip">Interview Scheduling</span>
+              <span class="chip">New Hire Onboarding</span>
+              <span class="chip">Employee Records Management</span>
+              <span class="chip">Benefits & Payroll Support</span>
+              <span class="chip">Compliance Assistance</span>
+              <span class="chip">Employee Engagement Support</span>
+            </div>
           </div>
 
           <div class="skill-card">
@@ -372,7 +373,62 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
+  
+    
+
+
+<!-- COGNITIVE BIAS QUIZ -->
+<section class="section alt" id="quiz">
+  <div class="container">
+    <div class="section-head">
+      <h2>🧠 Cognitive Bias at Work</h2>
+      <p>Five quick questions reveal which cognitive bias most influences your workplace decisions. Backed by psychology research.</p>
+    </div>
+    <div class="quiz-shell" id="quizShell">
+      <div class="quiz-progress-wrap">
+        <div class="quiz-progress-bar" id="quizProgressBar"></div>
+        <span class="quiz-progress-label" id="quizProgressLabel">Question 1 of 5</span>
+      </div>
+      <div class="quiz-card" id="quizCard">
+        <div class="quiz-q-num" id="quizQNum">Q1</div>
+        <div class="quiz-question" id="quizQuestion"></div>
+        <div class="quiz-options" id="quizOptions"></div>
+      </div>
+      <div class="quiz-result" id="quizResult" style="display:none">
+        <div class="quiz-result-icon" id="quizResultIcon"></div>
+        <div class="quiz-result-bias" id="quizResultBias"></div>
+        <div class="quiz-result-tagline" id="quizResultTagline"></div>
+        <p class="quiz-result-desc" id="quizResultDesc"></p>
+        <div class="quiz-result-fact">
+          <span class="quiz-fact-label">📚 Research fact</span>
+          <span id="quizResultFact"></span>
+        </div>
+        <button class="btn primary quiz-restart" id="quizRestart">Try Again ↺</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH VISUALIZER -->
+<section class="section" id="research">
+  <div class="container">
+    <div class="section-head">
+      <h2>🔬 Research Interests</h2>
+      <p>An interactive map of how my PhD research, psychology background, and HR work connect. Hover over any node to explore.</p>
+    </div>
+    <div class="viz-shell">
+      <div class="viz-legend">
+        <span class="viz-legend-item" style="--lc:124,92,255">Psychology</span>
+        <span class="viz-legend-item" style="--lc:99,179,255">Data Science</span>
+        <span class="viz-legend-item" style="--lc:255,160,100">Human Resources</span>
+        <span class="viz-legend-item" style="--lc:180,130,255">Education</span>
+      </div>
+      <canvas id="researchCanvas" class="viz-canvas" aria-label="Interactive research interests network graph"></canvas>
+      <p class="viz-hint">← Hover nodes to explore connections →</p>
+    </div>
+  </div>
+</section>
+  <!-- CONTACT -->
     <section class="section alt" id="contact">
       <div class="container">
         <div class="section-head">
@@ -442,61 +498,6 @@
         </div>
       </div>
     </section>
-
-    
-
-
-<!-- COGNITIVE BIAS QUIZ -->
-<section class="section alt" id="quiz">
-  <div class="container">
-    <div class="section-head">
-      <h2>🧠 Cognitive Bias at Work</h2>
-      <p>Five quick questions reveal which cognitive bias most influences your workplace decisions. Backed by psychology research.</p>
-    </div>
-    <div class="quiz-shell" id="quizShell">
-      <div class="quiz-progress-wrap">
-        <div class="quiz-progress-bar" id="quizProgressBar"></div>
-        <span class="quiz-progress-label" id="quizProgressLabel">Question 1 of 5</span>
-      </div>
-      <div class="quiz-card" id="quizCard">
-        <div class="quiz-q-num" id="quizQNum">Q1</div>
-        <div class="quiz-question" id="quizQuestion"></div>
-        <div class="quiz-options" id="quizOptions"></div>
-      </div>
-      <div class="quiz-result" id="quizResult" style="display:none">
-        <div class="quiz-result-icon" id="quizResultIcon"></div>
-        <div class="quiz-result-bias" id="quizResultBias"></div>
-        <div class="quiz-result-tagline" id="quizResultTagline"></div>
-        <p class="quiz-result-desc" id="quizResultDesc"></p>
-        <div class="quiz-result-fact">
-          <span class="quiz-fact-label">📚 Research fact</span>
-          <span id="quizResultFact"></span>
-        </div>
-        <button class="btn primary quiz-restart" id="quizRestart">Try Again ↺</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- RESEARCH VISUALIZER -->
-<section class="section" id="research">
-  <div class="container">
-    <div class="section-head">
-      <h2>🔬 Research Interests</h2>
-      <p>An interactive map of how my PhD research, psychology background, and HR work connect. Hover over any node to explore.</p>
-    </div>
-    <div class="viz-shell">
-      <div class="viz-legend">
-        <span class="viz-legend-item" style="--lc:124,92,255">Psychology</span>
-        <span class="viz-legend-item" style="--lc:99,179,255">Data Science</span>
-        <span class="viz-legend-item" style="--lc:255,160,100">Human Resources</span>
-        <span class="viz-legend-item" style="--lc:180,130,255">Education</span>
-      </div>
-      <canvas id="researchCanvas" class="viz-canvas" aria-label="Interactive research interests network graph"></canvas>
-      <p class="viz-hint">← Hover nodes to explore connections →</p>
-    </div>
-  </div>
-</section>
 
 
 <footer class="footer">
