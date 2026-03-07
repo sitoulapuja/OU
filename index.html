@@ -37,6 +37,8 @@
         <a href="#education">Education</a>
         <a href="#certs">Certifications</a>
         <a href="#contact" class="nav-cta">Contact</a>
+        <a href="#quiz">Mind Lab | Research</a>
+        
       </nav>
     </div>
   </header>
@@ -441,12 +443,70 @@
       </div>
     </section>
 
-    <footer class="footer">
+    
+
+
+<!-- COGNITIVE BIAS QUIZ -->
+<section class="section alt" id="quiz">
+  <div class="container">
+    <div class="section-head">
+      <h2>🧠 Cognitive Bias at Work</h2>
+      <p>Five quick questions reveal which cognitive bias most influences your workplace decisions. Backed by psychology research.</p>
+    </div>
+    <div class="quiz-shell" id="quizShell">
+      <div class="quiz-progress-wrap">
+        <div class="quiz-progress-bar" id="quizProgressBar"></div>
+        <span class="quiz-progress-label" id="quizProgressLabel">Question 1 of 5</span>
+      </div>
+      <div class="quiz-card" id="quizCard">
+        <div class="quiz-q-num" id="quizQNum">Q1</div>
+        <div class="quiz-question" id="quizQuestion"></div>
+        <div class="quiz-options" id="quizOptions"></div>
+      </div>
+      <div class="quiz-result" id="quizResult" style="display:none">
+        <div class="quiz-result-icon" id="quizResultIcon"></div>
+        <div class="quiz-result-bias" id="quizResultBias"></div>
+        <div class="quiz-result-tagline" id="quizResultTagline"></div>
+        <p class="quiz-result-desc" id="quizResultDesc"></p>
+        <div class="quiz-result-fact">
+          <span class="quiz-fact-label">📚 Research fact</span>
+          <span id="quizResultFact"></span>
+        </div>
+        <button class="btn primary quiz-restart" id="quizRestart">Try Again ↺</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH VISUALIZER -->
+<section class="section" id="research">
+  <div class="container">
+    <div class="section-head">
+      <h2>🔬 Research Interests</h2>
+      <p>An interactive map of how my PhD research, psychology background, and HR work connect. Hover over any node to explore.</p>
+    </div>
+    <div class="viz-shell">
+      <div class="viz-legend">
+        <span class="viz-legend-item" style="--lc:124,92,255">Psychology</span>
+        <span class="viz-legend-item" style="--lc:99,179,255">Data Science</span>
+        <span class="viz-legend-item" style="--lc:255,160,100">Human Resources</span>
+        <span class="viz-legend-item" style="--lc:180,130,255">Education</span>
+      </div>
+      <canvas id="researchCanvas" class="viz-canvas" aria-label="Interactive research interests network graph"></canvas>
+      <p class="viz-hint">← Hover nodes to explore connections →</p>
+    </div>
+  </div>
+</section>
+
+
+<footer class="footer">
       <div class="container footer-inner">
         <p>© <span id="year"></span> Puja Sitoula • Built with HTML/CSS/JS</p>
         <a href="#top" class="back-to-top">↑ Back to top</a>
       </div>
     </footer>
+
+
 
   </main>
 
