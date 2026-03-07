@@ -1,152 +1,126 @@
-// ===== Aurora + Mouse-Attract Particles Background =====
+// ===== Animated Background: People & Data Network =====
 (function () {
   const canvas = document.getElementById("bgCanvas");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
 
-  let W, H, mouse = { x: -999, y: -999 };
+  const COLORS = {
+    accent:  "124,92,255",
+    teal:    "48,213,200",
+    soft:    "180,194,230",
+  };
 
-  // ── Aurora blobs ──────────────────────────────────────────
-  const blobs = [
-    { x: 0.20, y: 0.15, r: 0.55, hue: 260, speed: 0.00018 },
-    { x: 0.75, y: 0.25, r: 0.50, hue: 175, speed: 0.00022 },
-    { x: 0.50, y: 0.70, r: 0.48, hue: 230, speed: 0.00015 },
-    { x: 0.85, y: 0.80, r: 0.42, hue: 285, speed: 0.00020 },
-    { x: 0.10, y: 0.85, r: 0.38, hue: 190, speed: 0.00017 },
+  // Labels that float around — HR + psychology + data themed
+  const LABELS = [
+    "Recruitment", "Onboarding", "HRIS", "Compliance",
+    "Psychology", "Data", "Research", "UKG", "Paycom",
+    "Excel", "Tableau", "Power BI", "SQL", "SPSS",
+    "HR Ops", "Engagement", "Taleo", "SAP",
   ];
-  let tick = 0;
 
-  function drawAurora() {
-    // dark base
-    ctx.fillStyle = "rgba(7,11,20,0.82)";
-    ctx.fillRect(0, 0, W, H);
+  let nodes = [];
+  let W, H;
 
-    blobs.forEach((b, i) => {
-      const ox = Math.sin(tick * b.speed * 1000 + i * 1.7) * 0.12;
-      const oy = Math.cos(tick * b.speed * 800  + i * 2.3) * 0.10;
-      const cx = (b.x + ox) * W;
-      const cy = (b.y + oy) * H;
-      const rad = b.r * Math.max(W, H);
-
-      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, rad);
-      g.addColorStop(0,   `hsla(${b.hue},90%,65%,0.13)`);
-      g.addColorStop(0.4, `hsla(${b.hue},80%,55%,0.07)`);
-      g.addColorStop(1,   `hsla(${b.hue},70%,40%,0.00)`);
-
-      ctx.beginPath();
-      ctx.ellipse(cx, cy, rad * 1.2, rad * 0.75, tick * b.speed * 200, 0, Math.PI * 2);
-      ctx.fillStyle = g;
-      ctx.fill();
-    });
-  }
-
-  // ── Particles ─────────────────────────────────────────────
-  let particles = [];
-  const ATTRACT_RADIUS = 160;
-  const ATTRACT_FORCE  = 0.018;
-  const FRICTION       = 0.92;
-  const LINK_DIST      = 110;
-
-  function makeParticle() {
-    const hue = Math.random() < 0.5 ? 260 : 175;
-    return {
-      x:  Math.random() * W,
-      y:  Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      r:  Math.random() * 1.8 + 1.2,
-      hue,
-      base_vx: (Math.random() - 0.5) * 0.4,
-      base_vy: (Math.random() - 0.5) * 0.4,
-      pulse: Math.random() * Math.PI * 2,
-    };
-  }
-
-  function initParticles() {
-    const count = Math.min(Math.floor((W * H) / 14000), 65);
-    particles = Array.from({ length: count }, makeParticle);
-  }
-
-  function drawParticles() {
-    // connections
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const a = particles[i], b = particles[j];
-        const dx = a.x - b.x, dy = a.y - b.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < LINK_DIST) {
-          const alpha = (1 - dist / LINK_DIST) * 0.22;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.strokeStyle = `hsla(${a.hue},80%,65%,${alpha})`;
-          ctx.lineWidth = 0.8;
-          ctx.stroke();
-        }
-      }
-    }
-
-    // dots
-    particles.forEach(p => {
-      p.pulse += 0.02;
-      const glow = Math.sin(p.pulse) * 0.5 + 0.5;
-
-      // mouse attract
-      const mdx = mouse.x - p.x;
-      const mdy = mouse.y - p.y;
-      const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-      if (mdist < ATTRACT_RADIUS && mdist > 1) {
-        const force = (1 - mdist / ATTRACT_RADIUS) * ATTRACT_FORCE;
-        p.vx += (mdx / mdist) * force;
-        p.vy += (mdy / mdist) * force;
-      }
-
-      // friction + drift back to base speed
-      p.vx = p.vx * FRICTION + p.base_vx * (1 - FRICTION);
-      p.vy = p.vy * FRICTION + p.base_vy * (1 - FRICTION);
-
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x < 0 || p.x > W) { p.vx *= -1; p.base_vx *= -1; }
-      if (p.y < 0 || p.y > H) { p.vy *= -1; p.base_vy *= -1; }
-
-      // glow halo
-      const halo = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 6);
-      halo.addColorStop(0, `hsla(${p.hue},90%,70%,${0.15 * glow})`);
-      halo.addColorStop(1, `hsla(${p.hue},90%,70%,0)`);
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r * 6, 0, Math.PI * 2);
-      ctx.fillStyle = halo;
-      ctx.fill();
-
-      // core
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(${p.hue},90%,75%,${0.6 + 0.4 * glow})`;
-      ctx.fill();
-    });
-  }
-
-  // ── Main loop ─────────────────────────────────────────────
   function resize() {
     W = canvas.width  = window.innerWidth;
     H = canvas.height = window.innerHeight;
   }
 
-  function loop(t) {
-    tick = t;
-    drawAurora();
-    drawParticles();
-    requestAnimationFrame(loop);
+  function randomColor() {
+    const keys = Object.keys(COLORS);
+    return COLORS[keys[Math.floor(Math.random() * keys.length)]];
   }
 
-  window.addEventListener("resize", () => { resize(); initParticles(); });
-  window.addEventListener("mousemove", e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-  window.addEventListener("mouseleave", () => { mouse.x = -999; mouse.y = -999; });
+  function makeNode(i) {
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 2.5 + 1.5,
+      color: randomColor(),
+      label: LABELS[i % LABELS.length],
+      pulse: Math.random() * Math.PI * 2,
+    };
+  }
 
-  resize();
-  initParticles();
-  requestAnimationFrame(loop);
+  function init() {
+    resize();
+    const count = Math.min(Math.floor((W * H) / 18000), 55);
+    nodes = Array.from({ length: count }, (_, i) => makeNode(i));
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    const LINK_DIST = 160;
+
+    // Draw connections
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < LINK_DIST) {
+          const alpha = (1 - dist / LINK_DIST) * 0.18;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = `rgba(${a.color},${alpha})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Draw nodes + labels
+    for (const n of nodes) {
+      n.pulse += 0.018;
+      const glow = Math.sin(n.pulse) * 0.5 + 0.5; // 0–1
+
+      // Outer glow ring
+      const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 5);
+      grad.addColorStop(0, `rgba(${n.color},${0.18 * glow})`);
+      grad.addColorStop(1, `rgba(${n.color},0)`);
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r * 5, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Core dot
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${n.color},${0.55 + 0.45 * glow})`;
+      ctx.fill();
+
+      // Floating label
+      ctx.font = "11px ui-sans-serif, system-ui, sans-serif";
+      ctx.fillStyle = `rgba(${n.color},${0.28 + 0.18 * glow})`;
+      ctx.fillText(n.label, n.x + n.r + 4, n.y + 4);
+
+      // Move
+      n.x += n.vx;
+      n.y += n.vy;
+
+      // Bounce off edges
+      if (n.x < 0 || n.x > W) n.vx *= -1;
+      if (n.y < 0 || n.y > H) n.vy *= -1;
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener("resize", () => {
+    resize();
+    // Keep existing nodes roughly in bounds
+    for (const n of nodes) {
+      n.x = Math.min(n.x, W);
+      n.y = Math.min(n.y, H);
+    }
+  });
+
+  init();
+  draw();
 })();
 
 const navToggle = document.getElementById("navToggle");
@@ -261,85 +235,12 @@ window.onCaptchaSuccess = function () {
   contactRevealed.style.display = "flex";
 };
 
-// ===== AI Chat Widget =====
-// ⚠️ After deploying to Vercel, replace this URL with your real Vercel deployment URL:
-// e.g. "https://puja-portfolio.vercel.app/api/chat"
-const CHAT_API_URL = "https://ou-gamma.vercel.app/api/chat";
-
-const aiOrb      = document.getElementById("aiOrb");
-const chatWindow = document.getElementById("chatWindow");
-const chatClose  = document.getElementById("chatClose");
-const chatInput  = document.getElementById("chatInput");
-const chatSend   = document.getElementById("chatSend");
-const chatMessages = document.getElementById("chatMessages");
-
-let chatOpen = false;
-
-function toggleChat() {
-  chatOpen = !chatOpen;
-  chatWindow.classList.toggle("open", chatOpen);
-  chatWindow.setAttribute("aria-hidden", String(!chatOpen));
-  if (chatOpen) setTimeout(() => chatInput?.focus(), 300);
-}
-
-aiOrb?.addEventListener("click", toggleChat);
-chatClose?.addEventListener("click", toggleChat);
-
-// Close on Escape key
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape" && chatOpen) toggleChat();
-});
-
-function addMessage(text, role) {
-  const wrap = document.createElement("div");
-  wrap.className = `chat-msg ${role}`;
-  const bubble = document.createElement("div");
-  bubble.className = "chat-bubble";
-  bubble.textContent = text;
-  wrap.appendChild(bubble);
-  chatMessages.appendChild(wrap);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-  return wrap;
-}
-
-function showTyping() {
-  const wrap = document.createElement("div");
-  wrap.className = "chat-msg bot chat-typing";
-  wrap.innerHTML = `<div class="chat-bubble"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`;
-  chatMessages.appendChild(wrap);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-  return wrap;
-}
-
-async function sendMessage() {
-  const text = chatInput?.value.trim();
-  if (!text) return;
-
-  chatInput.value = "";
-  chatSend.disabled = true;
-  addMessage(text, "user");
-
-  const typingEl = showTyping();
-
-  try {
-    const res = await fetch(CHAT_API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: text })
-    });
-    const data = await res.json();
-    typingEl.remove();
-    addMessage(data.reply || "Sorry, I couldn't get a response.", "bot");
-  } catch {
-    typingEl.remove();
-    addMessage("⚠️ Couldn't connect. Please try again.", "bot");
-  } finally {
-    chatSend.disabled = false;
-    chatInput?.focus();
-  }
-}
-
-chatSend?.addEventListener("click", sendMessage);
-chatInput?.addEventListener("keydown", e => {
-  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+// ===== AI Orb click (placeholder — wire up your agent here) =====
+document.getElementById("aiOrb")?.addEventListener("click", () => {
+  // TODO: replace this with your AI agent open/close logic
+  const tooltip = document.querySelector(".orb-tooltip");
+  tooltip.textContent = "🚀 !";
+  setTimeout(() => {
+    tooltip.innerHTML = "🤖 AI Assistant<br/><span>Coming Soon</span>";
+  }, 2000);
 });
